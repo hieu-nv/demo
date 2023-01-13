@@ -1,0 +1,31 @@
+server:
+  error:
+    include-message: "always"
+spring:
+  jpa:
+    show-sql: true
+  #  h2:
+  #    console:
+  #      enabled: true
+  #  datasource:
+  #    url: "jdbc:h2:mem:${spring.datasource.schemas}"
+  #    schemas: "demo"
+  #    username: sa
+  #    password: demo@123
+  #    driverClassName: org.h2.Driver
+
+  datasource:
+    url: "jdbc:mysql://localhost:3306/${spring.datasource.schemas}?createDatabaseIfNotExist=true"
+    schemas: "demo"
+    username: root
+    password: demo@123
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+#flyway:
+#  url: "${spring.datasource.url}"
+#  schemas: "${spring.datasource.schemas}"
+#  user: "${spring.datasource.username}"
+#  password: "${spring.datasource.password}"
+
+mybatis:
+  mapper-locations: "classpath:app.demo.mybatis.repository/*.xml"
