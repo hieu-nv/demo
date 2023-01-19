@@ -62,6 +62,4 @@ Tính dễ phát triển nhận được điểm tương đối cao, chủ yếu
 ### Tài liệu tham khảo
 
 - Software Architecture Patterns
-
-
-https://excalidraw.com/#json=hrBEjMVolrAZuYRhB7w3q,2S9KbEZEOSt2aY2emcNYuA
+- https://excalidraw.com/#json=hrBEjMVolrAZuYRhB7w3q,2S9KbEZEOSt2aY2emcNYuA

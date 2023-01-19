@@ -1,6 +1,6 @@
 ### [MyBatis](https://mybatis.org/mybatis-3/index.html) là gì?
 
-Thông tin về [MyBatis](https://mybatis.org/mybatis-3/index.html) bạn có thể tham khảo tại [đây](https://mybatis.org/mybatis-3/index.html). Nội dung bài viết này tập trung vào cách sử dụng MyBatis cùng với Spring Boot.
+*MyBatis* là một framework nổi tiếng trong cộng đồng Java. Nó là triển khai của tầng lưu trữ trong kiến trúc phân tầng trên nền tảng Java tương tự như Hibernate hoặc ngay cả là JDBC thuần. Nó giúp việc triển khai tầng lưu trữ trở nên đơn giản hơn với nhà phát triển. Thông tin về [MyBatis](https://mybatis.org/mybatis-3/index.html) bạn có thể tham khảo tại [đây](https://mybatis.org/mybatis-3/index.html). Nội dung bài viết này tập trung vào cách sử dụng *MyBatis* cùng với *Spring Boot*.
 
 ### [MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/index.html)
 
