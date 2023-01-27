@@ -1,4 +1,4 @@
-package app.demo.request;
+package app.demo.domain.order.create;
 
 /**
  * OrderCreateRequest.

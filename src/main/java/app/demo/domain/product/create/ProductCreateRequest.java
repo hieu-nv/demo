@@ -1,4 +1,4 @@
-package app.demo.request;
+package app.demo.domain.product.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

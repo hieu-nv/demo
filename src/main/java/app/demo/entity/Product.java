@@ -1,6 +1,6 @@
 package app.demo.entity;
 
-import app.demo.request.ProductCreateRequest;
+import app.demo.domain.product.create.ProductCreateRequest;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

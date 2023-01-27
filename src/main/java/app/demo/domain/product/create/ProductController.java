@@ -1,8 +1,5 @@
-package app.demo.controller;
+package app.demo.domain.product.create;
 
-import app.demo.request.ProductCreateRequest;
-import app.demo.response.ProductCreateResponse;
-import app.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
-  private final ProductService productService;
+  private final ProductCreateService productCreateService;
 
   @PostMapping
   public ResponseEntity<ProductCreateResponse> create(@RequestBody ProductCreateRequest request) {
-    return ResponseEntity.ok().body(ProductCreateResponse.of(productService.create(request)));
+    return ResponseEntity.ok().body(ProductCreateResponse.of(productCreateService.create(request)));
   }
 }

@@ -1,4 +1,4 @@
-package app.demo.response;
+package app.demo.domain.order.create;
 
 public class OrderCreateResponse {
 

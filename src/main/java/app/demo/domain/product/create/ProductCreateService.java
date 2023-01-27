@@ -1,9 +1,8 @@
-package app.demo.service;
+package app.demo.domain.product.create;
 
 import app.demo.entity.Product;
-import app.demo.request.ProductCreateRequest;
 
-public interface ProductService {
+public interface ProductCreateService {
 
   /**
    * Create new product.

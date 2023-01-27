@@ -1,4 +1,4 @@
-package app.demo.service;
+package app.demo.domain.order.create;
 
 import app.demo.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService {
+public class OrderCreateServiceImpl implements OrderCreateService {
   @SuppressWarnings("unused")
   private final OrderRepository orderRepository;
 }
