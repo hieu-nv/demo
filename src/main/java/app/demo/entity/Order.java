@@ -1,6 +1,5 @@
 package app.demo.entity;
 
-import app.demo.request.ProductCreateRequest;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Product.
+ * Order.
  *
  * @author Hieu Nguyen
  */
@@ -20,16 +19,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
-
+public class Order {
   @Id
   @GeneratedValue(generator = "Product")
   @TableGenerator(name = "Product", table = "hibernate_sequence")
   private Long id;
-
-  private String name;
-
-  public static Product of(ProductCreateRequest request) {
-    return Product.builder().name(request.getName()).build();
-  }
 }

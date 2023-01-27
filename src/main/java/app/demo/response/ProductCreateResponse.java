@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductCreateResponse {
-  private Integer id;
+  private Long id;
 
   private String name;
 
