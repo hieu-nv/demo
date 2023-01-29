@@ -1,6 +1,7 @@
 package app.demo.repository;
 
 import app.demo.entity.Product;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,6 @@ import org.springframework.stereotype.Repository;
  * @author Hieu Nguyen
  */
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {}
+public interface ProductRepository extends JpaRepository<Product, Long> {
+  Optional<Product> findByName(String name);
+}

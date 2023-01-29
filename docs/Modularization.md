@@ -2,6 +2,11 @@
 
 Mô đun hoá là quá trình tách một hệ thống phần mềm thành nhiều mô đun. Ngoài việc giảm độ phức tạp, nó làm tăng tính dễ hiểu, khả năng bảo trì và khả năng sử dụng lại của hệ thống. Trong bài viết này sẽ đề cập đến hai phương pháp mô đun hoá (theo tầng và theo tính năng). Chúng ta nên chọn phương pháp nào và tại sao?
 
+Trước khi đến với nội dung chính chúng ta cùng xem một số nội dung liên quan:
+1. [KIẾN TRÚC PHÂN TẦNG (LAYERED ARCHITECTURE) (PHẦN 1)](https://magz.techover.io/2023/01/04/kien-truc-phan-tang-layered-architecture-phan-1/)
+2. [KIẾN TRÚC PHÂN TẦNG (LAYERED ARCHITECTURE) (PHẦN 2)](https://magz.techover.io/2023/01/13/kien-truc-phan-tang-layered-architecture-phan-2/)
+3. [ÁP DỤNG KIẾN TRÚC PHÂN TẦNG TRONG ỨNG DỤNG SPRING BOOT](https://magz.techover.io/2023/01/19/ap-dung-kien-truc-phan-tang-trong-ung-dung-spring-boot/)
+
 ### Mô đun hoá theo tầng
 
 Khi áp dụng kiến trúc phân tầng vào các dự án kiểu này, các *class* được đặt trong các *package* dựa theo tầng trong kiến trúc phân tầng mà chúng thuộc về. Phương pháp này làm giảm tính gắn kết (low cohesion) giữa các *class* bên trong các *package* bởi vì trong cùng một *package* có chứa các *class* không liên quan chặt chẽ với nhau. Dưới dây là một ví dụ áp dụng phương pháp mô đun hoá theo tầng.
@@ -37,9 +42,7 @@ Khi áp dụng kiến trúc phân tầng vào các dự án kiểu này, các *c
 
 Ngoài ra khi kiểm tra cấu trúc của các dự án như trên chúng ta thấy rằng giữa các *package* có liên kết chặt chẽ với nhau (high coupling). Bởi vì các *class* ở tầng *Repository* được sử dụng trong các *class* ở tầng *Service* và các *class* ở tầng *Service* được sử dụng trong các *class* ở tầng *Controller*. Hơn nữa, mỗi khi có yêu cầu thay đổi chúng ta cần phải thay đổi ở nhiều *package* khác nhau.
 
-> I felt like I had to understand everything in order to help with anything. <cite>Sandi Metz</cite>
-
-Nghĩa là để giúp một việc nào đó thì chúng ta phải biết mọi thứ.
+> Để có thể giúp một việc nào đó, chúng ta cần phải biết mọi thứ.
 
 ### *Cohesion* và *Coupling* nghĩa là gì?
 
@@ -69,7 +72,7 @@ Dưới đây là một ví dụ áp dụng phương pháp mô đun hoá theo t�
 │   │   │           │   │       └── OrderCreateServiceImpl.java
 │   │   │           │   └── product
 │   │   │           │       └── create
-│   │   │           │           ├── ProductController.java
+│   │   │           │           ├── ProductCreateController.java
 │   │   │           │           ├── ProductCreateRequest.java
 │   │   │           │           ├── ProductCreateResponse.java
 │   │   │           │           ├── ProductCreateService.java
@@ -90,7 +93,9 @@ Hơn nữa, cấu trúc này làm tăng tính mô đun hoá. Giả sử rằng c
 
 Trong ví dụ trên chúng ta thấy có 2 ngoại lệ, *repository* và *entity* package không được cấu trúc theo tính năng như bình thường. Với các *entity* và các *repository* được sử dụng ở nhiều *service* khác nhau, do chúng không là bắt buộc ở một tính năng cụ thể nào nên chúng ta cấu trúc chúng theo phương pháp mô đun theo tầng như bình thường. Với những *entity* và *repository* chỉ được sử dụng ở một tính năng cụ thể nào đó, chúng ta vẫn cấu trúc chúng theo phương pháp mô đun hoá theo tính năng như bình thường.
 
+
 > Nếu một tính năng có thể được xoá bởi chỉ một hành động, ứng dụng đó có tính mô đun hoá cao nhất.
+
 
 ### Lợi ích của việc mô đun hoá theo tính năng
 
