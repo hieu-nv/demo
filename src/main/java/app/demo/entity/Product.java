@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * @author Hieu Nguyen
  */
 @Data
-@Entity
+@Entity(name = "PRODUCT")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

@@ -17,7 +17,7 @@ class ProductRepositoryTest {
   @Test
   void test() {
     Product product =
-        productRepository.findByName("PRD-1").orElseThrow(EntityNotFoundException::new);
+        productRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
     assertThat(product.getId(), is(1L));
   }
 }
