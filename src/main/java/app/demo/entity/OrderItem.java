@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(PrimaryKey.class)
-@Entity(name = "order_item")
+@Entity(name = "ORDER_ITEM")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderItem {
   @Id

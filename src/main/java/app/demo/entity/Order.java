@@ -1,21 +1,17 @@
 package app.demo.entity;
 
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.TableGenerator;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 /**
  * Order.
@@ -30,17 +26,28 @@ import org.hibernate.annotations.FetchMode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Order {
   @Id
-  @GeneratedValue(generator = "Product")
-  @TableGenerator(name = "Product", table = "hibernate_sequence")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
   private Long id;
 
   private String name;
 
-  @Fetch(FetchMode.SELECT)
-  @JoinColumn(name = "order_id")
-  @OneToMany(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.PERSIST})
-  private Set<OrderItem> orderItems;
+  //  @Fetch(FetchMode.SELECT)
+  //  @JoinColumn(name = "order_id")
+  //  @OneToMany(
+  //      fetch = FetchType.LAZY,
+  //      cascade = {CascadeType.PERSIST})
+  //  private Set<OrderItem> orderItems;
+
+  @PrimaryKeyJoinColumn
+  @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+  private OrderStatus orderStatus;
+
+  public void setOrderStatus(OrderStatus orderStatus) {
+    if (orderStatus.getOrder() == null || !orderStatus.getOrder().getId().equals(this.id)) {
+      orderStatus.setOrder(this);
+    }
+
+    this.orderStatus = orderStatus;
+  }
 }

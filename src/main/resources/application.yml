@@ -5,9 +5,9 @@ server:
 spring:
   jpa:
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
   #  h2:
   #    console:
   #      enabled: true
@@ -32,8 +32,8 @@ spring:
     user: "${spring.datasource.username}"
     password: "${spring.datasource.password}"
 
-mybatis:
-  mapper-locations: "classpath:app.demo.mybatis.repository/*.xml"
+#mybatis:
+#  mapper-locations: "classpath:app.demo.mybatis.repository/*.xml"
 
 logging:
   level:
