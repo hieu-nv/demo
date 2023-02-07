@@ -1,13 +1,12 @@
-package app.demo.mybatis.entity;
+package app.demo.domain.product.create;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <code>product</code>.
+ * ProductCreateRequest.
  *
  * @author Hieu Nguyen
  */
@@ -15,11 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product implements Serializable {
-
-  /** <code>id</code>. */
-  private String id;
-
-  /** <code>name</code>. */
+public class ProductCreateRequest {
   private String name;
+
 }
