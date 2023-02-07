@@ -190,6 +190,63 @@ Kiểm tra trong cơ sở dữ liệu chúng ta sẽ thấy các bản ghi sau �
 
 ![](https://s3.ap-southeast-1.amazonaws.com/techover.storage/wp-content/uploads/2023/02/06171342/Screenshot-2023-02-06-at-17.12.51.png)
 
+### Xoá dữ liệu cascading
+
+Tiếp theo chúng ta cùng xem một đoạn mã để kiểm chứng cơ chế hoạt động *cascading*. Chúng ta sẽ thử xoá thực thể *Customer* để xem thực thể *Account* tương ứng sẽ được xử lí như thế nào. Chúng ta cùng xem đoạn mã sau:
+
+```java
+@Component
+public class Main implements CommandLineRunner {
+  @Autowired private CustomerRepository customerRepository;
+
+  @Override
+  @Transactional
+  public void run(String... args) throws Exception {
+    var customer = customerRepository.findById(1L).orElseThrow(() -> new EntityNotFoundException());
+    customerRepository.delete(customer);
+  }
+}
+```
+
+Sau khi chạy chương trình chúng ta sẽ thấy output như sau:
+
+```
+2023-02-07 09:45:07.300 DEBUG 83225 --- [           main] o.h.e.t.internal.TransactionImpl         : On TransactionImpl creation, JpaCompliance#isJpaTransactionComplianceEnabled == false
+2023-02-07 09:45:07.300 DEBUG 83225 --- [           main] o.h.e.t.internal.TransactionImpl         : begin
+2023-02-07 09:45:07.317 DEBUG 83225 --- [           main] org.hibernate.SQL                        : select customer0_.id as id1_1_0_, customer0_.account_id as account_4_1_0_, customer0_.first_name as first_na2_1_0_, customer0_.last_name as last_nam3_1_0_, account1_.id as id1_0_1_, account1_.username as username2_0_1_ from customer customer0_ inner join account account1_ on customer0_.account_id=account1_.id where customer0_.id=?
+Hibernate: select customer0_.id as id1_1_0_, customer0_.account_id as account_4_1_0_, customer0_.first_name as first_na2_1_0_, customer0_.last_name as last_nam3_1_0_, account1_.id as id1_0_1_, account1_.username as username2_0_1_ from customer customer0_ inner join account account1_ on customer0_.account_id=account1_.id where customer0_.id=?
+2023-02-07 09:45:07.319 TRACE 83225 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+2023-02-07 09:45:07.324 DEBUG 83225 --- [           main] l.p.e.p.i.EntityReferenceInitializerImpl : On call to EntityIdentifierReaderImpl#resolve, EntityKey was already known; should only happen on root returns with an optional identifier specified
+2023-02-07 09:45:07.328 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Resolving attributes for [app.demo.entity.Customer#1]
+2023-02-07 09:45:07.328 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Processing attribute `account` : value = 1
+2023-02-07 09:45:07.328 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Attribute (`account`)  - enhanced for lazy-loading? - false
+2023-02-07 09:45:07.328 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Processing attribute `firstName` : value = Hieu
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Attribute (`firstName`)  - enhanced for lazy-loading? - false
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Processing attribute `lastName` : value = Nguyen
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Attribute (`lastName`)  - enhanced for lazy-loading? - false
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Done materializing entity [app.demo.entity.Customer#1]
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Resolving attributes for [app.demo.entity.Account#1]
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Processing attribute `username` : value = hieunv
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Attribute (`username`)  - enhanced for lazy-loading? - false
+2023-02-07 09:45:07.329 DEBUG 83225 --- [           main] o.h.engine.internal.TwoPhaseLoad         : Done materializing entity [app.demo.entity.Account#1]
+2023-02-07 09:45:07.330 DEBUG 83225 --- [           main] .l.e.p.AbstractLoadPlanBasedEntityLoader : Done entity load : app.demo.entity.Customer#1
+2023-02-07 09:45:07.334 DEBUG 83225 --- [           main] o.h.e.t.internal.TransactionImpl         : committing
+2023-02-07 09:45:07.334 DEBUG 83225 --- [           main] o.h.e.i.AbstractFlushingEventListener    : Processing flush-time cascades
+2023-02-07 09:45:07.334 DEBUG 83225 --- [           main] o.h.e.i.AbstractFlushingEventListener    : Dirty checking collections
+2023-02-07 09:45:07.335 DEBUG 83225 --- [           main] o.h.e.i.AbstractFlushingEventListener    : Flushed: 0 insertions, 0 updates, 2 deletions to 2 objects
+2023-02-07 09:45:07.335 DEBUG 83225 --- [           main] o.h.e.i.AbstractFlushingEventListener    : Flushed: 0 (re)creations, 0 updates, 0 removals to 0 collections
+2023-02-07 09:45:07.335 DEBUG 83225 --- [           main] o.hibernate.internal.util.EntityPrinter  : Listing entities:
+2023-02-07 09:45:07.336 DEBUG 83225 --- [           main] o.hibernate.internal.util.EntityPrinter  : app.demo.entity.Customer{firstName=Hieu, lastName=Nguyen, id=1, account=app.demo.entity.Account#1}
+2023-02-07 09:45:07.336 DEBUG 83225 --- [           main] o.hibernate.internal.util.EntityPrinter  : app.demo.entity.Account{id=1, username=hieunv}
+2023-02-07 09:45:07.341 DEBUG 83225 --- [           main] org.hibernate.SQL                        : delete from customer where id=?
+Hibernate: delete from customer where id=?
+2023-02-07 09:45:07.341 TRACE 83225 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+2023-02-07 09:45:07.346 DEBUG 83225 --- [           main] org.hibernate.SQL                        : delete from account where id=?
+Hibernate: delete from account where id=?
+2023-02-07 09:45:07.346 TRACE 83225 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+```
+
+Chúng ta thấy rằng khi thực thể *Customer* bị xoá thì thực thể *Account* tương ứng được liên kết thông quan anh xạ *one-to-one* cũng bị xoá.
 
 ### Tổng kết
 

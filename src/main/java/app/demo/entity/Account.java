@@ -1,10 +1,11 @@
 package app.demo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,4 +36,7 @@ public class Account {
 
   /** <code>username</code>. */
   @ToString.Include private String username;
+
+  @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+  private Customer customer;
 }
