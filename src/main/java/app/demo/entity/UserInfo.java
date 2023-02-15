@@ -2,6 +2,7 @@ package app.demo.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,18 +14,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-/** <code>user_info</code>. */
+/**
+ * <code>user_info</code>.
+ *
+ * @author Hieu Nguyen
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "`user_info`")
+@Entity(name = "user_info")
 public class UserInfo {
 
   /** <code>user_id</code>. */
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
 
   /** <code>first_name</code>. */
@@ -35,7 +41,7 @@ public class UserInfo {
 
   @MapsId
   @ToString.Exclude
-  @PrimaryKeyJoinColumn
-  @OneToOne(cascade = CascadeType.ALL, optional = false)
+  @Fetch(FetchMode.JOIN)
+  @OneToOne(cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.EAGER)
   private User user;
 }

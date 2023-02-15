@@ -3,6 +3,7 @@ package app.demo;
 import app.demo.entity.User;
 import app.demo.entity.UserInfo;
 import app.demo.repository.UserRepository;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,8 +23,9 @@ public class Main implements CommandLineRunner {
   @Override
   @Transactional
   public void run(String... args) throws Exception {
-    var userInfo = UserInfo.builder().firstName("Hieu").lastName("Nguyen").build();
-    var user = User.builder().username("hieunv").userInfo(userInfo).build();
+    var uuid = UUID.randomUUID();
+    var userInfo = UserInfo.builder().firstName("Hieu-" + uuid).lastName("Nguyen-" + uuid).build();
+    var user = User.builder().username("hieunv-" + UUID.randomUUID()).userInfo(userInfo).build();
     userInfo.setUser(user);
     userRepository.save(user);
   }
